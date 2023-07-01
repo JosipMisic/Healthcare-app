@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1082657067534",
-    "project_id": "healthcare-app-10268",
-    "storage_bucket": "healthcare-app-10268.appspot.com"
+    "project_number": "272804664652",
+    "project_id": "healthcare-app-5a690",
+    "storage_bucket": "healthcare-app-5a690.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1082657067534:android:4b2a62f8a7a296f539a25f",
+        "mobilesdk_app_id": "1:272804664652:android:e3a2590830c949a7926be9",
         "android_client_info": {
           "package_name": "hr.ferit.josipmisic.healthcareapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1082657067534-6s29aluq2ul1bi8dgf7l0ednpmsdbhh9.apps.googleusercontent.com",
+          "client_id": "272804664652-0uu63eojuodogcq38ndgglnks4jljl8p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBo24P9HHLOj0_VjEmHjkUD6LX6e4pNzqQ"
+          "current_key": "AIzaSyASmPqdcCfLluvmrcZU8xti8Lwd7HKMW2g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1082657067534-6s29aluq2ul1bi8dgf7l0ednpmsdbhh9.apps.googleusercontent.com",
+              "client_id": "272804664652-0uu63eojuodogcq38ndgglnks4jljl8p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

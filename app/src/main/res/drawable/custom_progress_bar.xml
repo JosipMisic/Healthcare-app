@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Napredak boje -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="20dp" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+
+    <!-- Glavni napredak boje -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="20dp" />
+                <solid android:color="@color/colorOrange" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

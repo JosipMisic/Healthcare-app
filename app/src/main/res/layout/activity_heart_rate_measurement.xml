@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    tools:context=".MainActivity"
+    android:layout_marginTop="-300dp">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/circular_progress_bar" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currentHeartRateTextView"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_bg"
+        android:layout_marginTop="16dp"
+        android:text="Start" />
+
+    <TextView
+        android:id="@+id/currentHeartRateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/progressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:text="0%"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"/>
+
+    <ImageView
+        android:id="@+id/heartImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/progressText"
+        android:src="@drawable/ic_heart"
+        android:visibility="invisible" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@id/startButton"
+        android:layout_marginTop="50dp"/>
+
+    <ProgressBar
+        android:id="@+id/lastHeartRateProgressBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        android:max="120"
+        android:progress="0" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lastHeartRateProgressBar">
+
+    <TextView
+        android:id="@+id/progressValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"
+        android:layout_marginEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/bpmTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="BPM"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/maxValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/lastHeartRateProgressBar"
+        android:layout_below="@+id/lastHeartRateProgressBar"
+        android:text="120"
+        android:visibility="invisible"
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/minValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/lastHeartRateProgressBar"
+        android:layout_below="@+id/lastHeartRateProgressBar"
+        android:text="0"
+        android:visibility="invisible"
+        android:textSize="16sp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/vasIzmjereniPulsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/lastHeartRateProgressBar"
+        android:layout_above="@+id/lastHeartRateProgressBar"
+        android:text="Vaš izmjereni puls:"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/prosjecanRasponTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lastHeartRateProgressBar"
+        android:text="Prosječan raspon: 61-76 BPM-a"
+        android:visibility="invisible"
+        android:textSize="13sp"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/pulseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mjerenje..."
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/progressText"
+        android:animation="@anim/pulse_text"
+        android:visibility="invisible"
+        android:textColor="@color/colorWhite"/>
+
+    <TextView
+        android:id="@+id/pokusajteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pokušajte biti mirni i tihi."
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/progressBar"
+        android:visibility="invisible"
+        android:paddingBottom="20dp"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:id="@+id/odustaniButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:layout_alignStart="@id/lastHeartRateProgressBar"
+        android:visibility="invisible"
+        android:text="Odustani"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/spremiButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:layout_alignEnd="@id/lastHeartRateProgressBar"
+        android:visibility="invisible"
+        android:text="Spremi"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

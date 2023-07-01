@@ -3,15 +3,24 @@ package hr.ferit.josipmisic.healthcareapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.text.method.PasswordTransformationMethod
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import hr.ferit.josipmisic.healthcareapp.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+    private lateinit var showHidePasswordButton: ImageButton
+    private lateinit var showHidePasswordButton2: ImageButton
+    private lateinit var editTextRegPassword: EditText
+    private lateinit var editTextRegConfirmPassword: EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,13 +30,57 @@ class RegisterActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        showHidePasswordButton = findViewById(R.id.showHidePasswordButton)
+        showHidePasswordButton2 = findViewById(R.id.showHidePasswordButton2)
+        editTextRegPassword = findViewById(R.id.editTextRegPassword)
+        editTextRegConfirmPassword = findViewById(R.id.editTextRegConfirmPassword)
+
+        showHidePasswordButton.setOnClickListener {
+            if ( editTextRegPassword.transformationMethod is PasswordTransformationMethod) {
+                // Trenutno je prikazana skrivena lozinka, promijeni način prikaza u običan tekst
+                editTextRegPassword.transformationMethod = null
+                showHidePasswordButton.setImageResource(R.drawable.ic_password_visibility_on)
+            } else {
+                // Trenutno je prikazan običan tekst, promijeni način prikaza u skrivenu lozinku
+                editTextRegPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                showHidePasswordButton.setImageResource(R.drawable.ic_password_visibility_off)
+            }
+
+            // Osvježi tekst kako bi se prikazala nova transformacija
+            editTextRegPassword.setSelection( editTextRegPassword.text?.length ?: 0)
+        }
+
+        showHidePasswordButton2.setOnClickListener {
+            if (  editTextRegConfirmPassword.transformationMethod is PasswordTransformationMethod) {
+                // Trenutno je prikazana skrivena lozinka, promijeni način prikaza u običan tekst
+                editTextRegConfirmPassword.transformationMethod = null
+                showHidePasswordButton2.setImageResource(R.drawable.ic_password_visibility_on)
+            } else {
+                // Trenutno je prikazan običan tekst, promijeni način prikaza u skrivenu lozinku
+                editTextRegConfirmPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                showHidePasswordButton2.setImageResource(R.drawable.ic_password_visibility_off)
+            }
+
+            // Osvježi tekst kako bi se prikazala nova transformacija
+            editTextRegConfirmPassword.setSelection(  editTextRegConfirmPassword.text?.length ?: 0)
+        }
+
         binding.buttonRegister.setOnClickListener{
+            val username = binding.editTextRegUsername.text.toString()
             val email = binding.editTextRegEmail.text.toString()
             val password = binding.editTextRegPassword.text.toString()
             val confirmPassword = binding.editTextRegConfirmPassword.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
+            val user = User(username, email)
+
+            if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
                 if (password == confirmPassword){
+                    database = FirebaseDatabase.getInstance().getReference("Korisnici")
+                    database.child(username).setValue(user).addOnSuccessListener {
+                        Toast.makeText(this,"Uspješno spremljeno", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener{
+                        Toast.makeText(this,"Greška", Toast.LENGTH_SHORT).show()
+                    }
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
                             val intent = Intent(this, LoginActivity::class.java)

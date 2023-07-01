@@ -11,8 +11,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background"
+    android:background="@drawable/back2"
     tools:context=".RegisterActivity">
+
 
     <EditText
         android:id="@+id/editTextRegEmail"
@@ -38,7 +39,7 @@
 
     <EditText
         android:id="@+id/editTextRegPassword"
-        android:layout_width="329dp"
+        android:layout_width="280dp"
         android:layout_height="49dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/input_bg"
@@ -53,14 +54,23 @@
         android:paddingBottom="10dp"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/editTextRegEmail"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegEmail" />
+
+    <ImageButton
+        android:id="@+id/showHidePasswordButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Prikaži/sakrij lozinku"
+        android:src="@drawable/ic_password_visibility_off"
+        app:layout_constraintBottom_toTopOf="@+id/editTextRegConfirmPassword"
+        app:layout_constraintStart_toEndOf="@id/editTextRegPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegEmail" />
 
     <EditText
         android:id="@+id/editTextRegConfirmPassword"
-        android:layout_width="329dp"
+        android:layout_width="280dp"
         android:layout_height="49dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/input_bg"
@@ -75,8 +85,18 @@
         android:paddingBottom="10dp"
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/editTextRegPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRegPassword" />
+
+    <ImageButton
+        android:id="@+id/showHidePasswordButton2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Prikaži/sakrij lozinku"
+        android:src="@drawable/ic_password_visibility_off"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
+        app:layout_constraintStart_toEndOf="@id/editTextRegConfirmPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextRegPassword" />
 
     <TextView

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Healthcare app</string>
+    <string name="current_heart_rate_result">%d BPM</string>
+    <string name="horizontal_progress_bar_result">%d</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
