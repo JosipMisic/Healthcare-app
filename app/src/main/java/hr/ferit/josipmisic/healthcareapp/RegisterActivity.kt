@@ -46,12 +46,13 @@ class RegisterActivity : AppCompatActivity() {
                 showHidePasswordButton.setImageResource(R.drawable.ic_password_visibility_off)
             }
 
-            // Osvježi tekst kako bi se prikazala nova transformacija
+            // Osvježi tekst kako bi se prikazala nova transformacija, postavljanje kursora na kraj teksta unutar EditText polja,
+            // editTextRegPassword.text?.length ?: 0 će vratiti duljinu teksta unutar EditText polja ako tekst nije null, inače će vratiti 0.
             editTextRegPassword.setSelection( editTextRegPassword.text?.length ?: 0)
         }
 
         showHidePasswordButton2.setOnClickListener {
-            if (  editTextRegConfirmPassword.transformationMethod is PasswordTransformationMethod) {
+            if (editTextRegConfirmPassword.transformationMethod is PasswordTransformationMethod) {
                 // Trenutno je prikazana skrivena lozinka, promijeni način prikaza u običan tekst
                 editTextRegConfirmPassword.transformationMethod = null
                 showHidePasswordButton2.setImageResource(R.drawable.ic_password_visibility_on)
@@ -61,8 +62,9 @@ class RegisterActivity : AppCompatActivity() {
                 showHidePasswordButton2.setImageResource(R.drawable.ic_password_visibility_off)
             }
 
-            // Osvježi tekst kako bi se prikazala nova transformacija
-            editTextRegConfirmPassword.setSelection(  editTextRegConfirmPassword.text?.length ?: 0)
+            // Osvježi tekst kako bi se prikazala nova transformacija, postavljanje kursora na kraj teksta unutar EditText polja,
+            // editTextRegPassword.text?.length ?: 0 će vratiti duljinu teksta unutar EditText polja ako tekst nije null, inače će vratiti 0.
+            editTextRegConfirmPassword.setSelection(editTextRegConfirmPassword.text?.length ?: 0)
         }
 
         binding.buttonRegister.setOnClickListener{

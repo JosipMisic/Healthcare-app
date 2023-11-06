@@ -47,6 +47,7 @@ class HomeFragment : Fragment(), MealDialogFragment.MealDialogListener {
     private lateinit var scrollView: ScrollView
     private lateinit var caseTextView: TextView
     private lateinit var caseCountTextView: TextView
+    private lateinit var izmjeriButton: Button
     private lateinit var decrementButton: Button
     private lateinit var incrementButton: Button
     private lateinit var glassImageView: ImageView
@@ -60,8 +61,7 @@ class HomeFragment : Fragment(), MealDialogFragment.MealDialogListener {
 
     override fun onCreateView(
 
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflater koristi XML layout za prikazivanje fragmenta
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
@@ -77,7 +77,7 @@ class HomeFragment : Fragment(), MealDialogFragment.MealDialogListener {
             savedScrollPosition = scrollView.scrollY
         }
 
-        val myButton: Button = view.findViewById(R.id.izmjeriButton)
+        izmjeriButton = view.findViewById(R.id.izmjeriButton)
         caseTextView = view.findViewById(R.id.caseTextView)
         caseCountTextView = view.findViewById(R.id.caseCountTextView)
         decrementButton = view.findViewById<Button>(R.id.decrementButton)
@@ -108,7 +108,7 @@ class HomeFragment : Fragment(), MealDialogFragment.MealDialogListener {
         decrementButton.isEnabled = false
 
 
-        myButton.setOnClickListener {
+        izmjeriButton.setOnClickListener {
             val intent = Intent(activity, HeartRateMeasurement::class.java)
             startActivity(intent)
         }
@@ -282,7 +282,9 @@ class HomeFragment : Fragment(), MealDialogFragment.MealDialogListener {
             val query = korisniciRef.orderByChild("email").equalTo(currentUserEmail)
 
             query.addListenerForSingleValueEvent(object : ValueEventListener {
+                //DataSnapshot predstavlja trenutno stanje podataka na određenom čvoru baze podataka u određenom trenutku
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    //snapshot predstavlja jedno dijete (child)
                     for (snapshot in dataSnapshot.children) {
 
                         val user = mapOf<String, Any>(
@@ -319,7 +321,9 @@ class HomeFragment : Fragment(), MealDialogFragment.MealDialogListener {
             val query = korisniciRef.orderByChild("email").equalTo(currentUserEmail)
 
             query.addListenerForSingleValueEvent(object : ValueEventListener {
+                //DataSnapshot predstavlja trenutno stanje podataka na određenom čvoru baze podataka u određenom trenutku
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    //snapshot predstavlja jedno dijete (child)
                     for (snapshot in dataSnapshot.children) {
                         val heartRate = snapshot.child("heartRate").value
                         val displayedHeartRate = heartRate?.toString() ?: "- -"
@@ -491,7 +495,9 @@ class MealDialogFragment : DialogFragment() {
             dismiss()
         }
 
-        radioGroup.setOnCheckedChangeListener { _, _ ->
+        //Postavljanje slušatelja koji će se aktivirati svaki put kada se promijeni odabrani radio gumb unutar RadioGroup,
+        //_,_ se koristi za naznačavanje da se prva i druga vrijednost neće koristiti unutar tijela funkcije
+                radioGroup.setOnCheckedChangeListener { _, _ ->
             validateInputs()
         }
 
@@ -520,7 +526,11 @@ class MealDialogFragment : DialogFragment() {
         enterMealButton.isEnabled = selectedRadioButton != null && calories.isNotEmpty() && isNumeric(calories)
     }
 
+    //\\d+ provjerava da li se string sastoji samo od jednog ili više brojevnih znakova (0-9), što odgovara pozitivnom cijelom broju.
+    //str.toIntOrNull() != null  konvertira string u integer, ako je rezultat konverzije različit od null, to znači da je string ispravno konvertiran u cijeli broj.
+    //str.toInt() > 0 provjerava je li konvertirani broj veći od nule, što znači da je to pozitivan cijeli broj
+    //Ako svi uvjeti budu zadovoljeni, metoda će vratiti true, inače će vratiti false
     private fun isNumeric(str: String): Boolean {
-        return str.matches("-?\\d+(\\.\\d+)?".toRegex())
+        return str.matches("\\d+".toRegex()) && str.toIntOrNull() != null && str.toInt() > 0
     }
 }

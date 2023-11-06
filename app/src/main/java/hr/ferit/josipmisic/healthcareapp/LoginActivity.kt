@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         showHidePasswordButton = findViewById(R.id.showHidePasswordButton)
 
         showHidePasswordButton.setOnClickListener {
-            if ( editTextLoginPassword.transformationMethod is PasswordTransformationMethod) {
+            if (editTextLoginPassword.transformationMethod is PasswordTransformationMethod) {
                 // Trenutno je prikazana skrivena lozinka, promijeni način prikaza u običan tekst
                 editTextLoginPassword.transformationMethod = null
                 showHidePasswordButton.setImageResource(R.drawable.ic_password_visibility_on)
@@ -39,7 +39,8 @@ class LoginActivity : AppCompatActivity() {
                 showHidePasswordButton.setImageResource(R.drawable.ic_password_visibility_off)
             }
 
-            // Osvježi tekst kako bi se prikazala nova transformacija
+            // Osvježi tekst kako bi se prikazala nova transformacija, postavljanje kursora na kraj teksta unutar EditText polja,
+            // editTextRegPassword.text?.length ?: 0 će vratiti duljinu teksta unutar EditText polja ako tekst nije null, inače će vratiti 0.
             editTextLoginPassword.setSelection( editTextLoginPassword.text?.length ?: 0)
         }
 

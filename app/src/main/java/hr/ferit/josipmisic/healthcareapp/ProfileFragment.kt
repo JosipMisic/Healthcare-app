@@ -65,7 +65,9 @@ class ProfileFragment : Fragment() {
             val query = korisniciRef.orderByChild("email").equalTo(currentUserEmail)
 
             query.addListenerForSingleValueEvent(object : ValueEventListener {
+                //DataSnapshot predstavlja trenutno stanje podataka na određenom čvoru baze podataka u određenom trenutku
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    //snapshot predstavlja jedno dijete (child)
                     for (snapshot in dataSnapshot.children) {
                         val username = snapshot.child("username").value.toString()
                         val email = snapshot.child("email").value.toString()

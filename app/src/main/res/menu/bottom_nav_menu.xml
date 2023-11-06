@@ -5,7 +5,7 @@
         android:icon="@drawable/home_icon"
         android:title="Početna" />
     <item
-        android:id="@+id/navigation_settings"
+        android:id="@+id/navigation_profile"
         android:icon="@drawable/profile_icon"
         android:title="Profil" />
 </menu>

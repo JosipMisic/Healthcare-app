@@ -8,7 +8,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomNavView: BottomNavigationView
-
     private val homeFragment = HomeFragment()
     private val profileFragment = ProfileFragment()
 
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
                     switchFragment(homeFragment)
                     true
                 }
-                R.id.navigation_settings -> {
+                R.id.navigation_profile -> {
                     switchFragment(profileFragment)
                     true
                 }

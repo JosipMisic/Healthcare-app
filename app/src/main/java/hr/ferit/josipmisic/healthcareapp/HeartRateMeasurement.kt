@@ -82,7 +82,7 @@ class HeartRateMeasurement : AppCompatActivity() {
         }
 
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-            // Ne koristimo ovu metodu u ovom primjeru
+            // Ne koristimo ovu metodu
         }
     }
 
@@ -118,8 +118,10 @@ class HeartRateMeasurement : AppCompatActivity() {
         val circularProgressDrawable = CircularProgressDrawable(this).apply {
             strokeWidth = 10f // Debljina linije napretka
             centerRadius = 50f // Radijus kružnog progresbara
+            //pokretanje animacije kružnog progress bara
             start()
         }
+        //Prikazivanje definiranog animiranog napretka kružnog vrtloga.
         progressBar.indeterminateDrawable = circularProgressDrawable
 
         val dialogFragment = MyDialogFragment()
@@ -160,31 +162,18 @@ class HeartRateMeasurement : AppCompatActivity() {
         heartRateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
 
         if (heartRateSensor == null) {
-            Toast.makeText(
-                this,
-                "Nedostupan senzor pulsa na uređaju",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(this, "Nedostupan senzor pulsa na uređaju", Toast.LENGTH_SHORT).show()
         } else {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.BODY_SENSORS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.BODY_SENSORS),
-                    1
-                )
+            //Provjera je li dozvola za pristup senzorima tijela već dodijeljena aplikaciji
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.BODY_SENSORS) != PackageManager.PERMISSION_GRANTED) {
+                // Koristenje metode requestPermissions() da bi zatražili dozvolu od korisnika. Metoda requestPermissions() prikazuje dijalog korisniku s zahtjevom za dozvolu pristupa senzorima tijela.
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BODY_SENSORS), 1)
             } else {
                 isMeasuringHeartRate = true
                 heartRateMeasurements.clear()
                 ekgEntries.clear()
-                sensorManager.registerListener(
-                    heartRateListener,
-                    heartRateSensor,
-                    SensorManager.SENSOR_DELAY_NORMAL
-                )
+                //Registriranje slušača (listener) za senzor otkucaja srca kako bi primao ažuriranja podataka s tog senzora.
+                sensorManager.registerListener(heartRateListener, heartRateSensor, SensorManager.SENSOR_DELAY_NORMAL)
                 progressBar.progress = 0
                 progressText.text = "0%"
                 startButton.text = "Stop"
@@ -213,6 +202,7 @@ class HeartRateMeasurement : AppCompatActivity() {
 
     private fun stopHeartRateMeasurement() {
         isMeasuringHeartRate = false
+        //Više ne želimo primati ažuriranja sa senzora
         sensorManager.unregisterListener(heartRateListener)
         progressBar.progress = 100
         progressText.text = "100%"
@@ -324,20 +314,20 @@ class HeartRateMeasurement : AppCompatActivity() {
 
 
     override fun onRequestPermissionsResult(
+        //Prepoznavanje dozvole ako postoji više zahtjeva za dozvolama u istoj aktivnosti
         requestCode: Int,
+        //Niz stringova koji sadrži popis traženih dozvola.
         permissions: Array<out String>,
+        //Niz integera koji sadrži rezultate korisnikovih odgovora na zahtjev za dozvolom.
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1) {
+            //PERMISSION_GRANTED ako je dozvola odobrena ili PERMISSION_DENIED ako je odbijena.
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startHeartRateMeasurement()
             } else {
-                Toast.makeText(
-                    this,
-                    "Dozvola za pristup senzoru nije odobrena",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Dozvola za pristup senzoru nije odobrena", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -356,7 +346,9 @@ class HeartRateMeasurement : AppCompatActivity() {
             val query = korisniciRef.orderByChild("email").equalTo(currentUserEmail)
 
             query.addListenerForSingleValueEvent(object : ValueEventListener {
+                //DataSnapshot predstavlja trenutno stanje podataka na određenom čvoru baze podataka u određenom trenutku
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    //snapshot predstavlja jedno dijete (child)
                     for (snapshot in dataSnapshot.children) {
 
                         val user = mapOf<String, Any>(
